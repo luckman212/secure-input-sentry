@@ -12,6 +12,10 @@ Inspired by this bug: [macOS Secure Input not released after pressing Enter to s
 
 More about SecureInput from Apple: [Technical Note TN2150: Using Secure Event Input Fairly](https://developer.apple.com/library/archive/technotes/tn2150/_index.html)
 
+### Install & Use
+
+Download the latest [release](https://github.com/luckman212/secure-input-sentry/releases), drag it into your Applications folder, and run it. The app is signed and notarized, and no special permissions are required.
+
 ### What you'll see
 
 Here's an example of what you'll see when the app is running and SecureInput is triggered:
