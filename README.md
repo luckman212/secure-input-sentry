@@ -4,7 +4,7 @@
 
 ### What this is
 
-Compact menubar app that monitors for apps enabling (locking) macOS SecureInput. When locked, certain clipboard/snippet operations may fail. Notably things like clipboard/snippet managers (Alfred in my case!) or password managers.
+Compact menubar app that monitors for apps enabling (locking) macOS SecureInput. When locked, certain clipboard/snippet operations may fail. Notably things like clipboard/snippet managers (Alfred in my case!) or password managers. You'd experience it as triggering a hotkey or snippet trigger, and nothing would happen.
 
 Inspired by this bug: [macOS Secure Input not released after pressing Enter to submit login form (breaks system-wide hotkey [567613584] - Chromium](https://issues.chromium.org/issues/567613584)
 
