@@ -14,7 +14,7 @@ More about SecureInput from Apple: [Technical Note TN2150: Using Secure Event In
 
 ### Install & Use
 
-Download the latest [release](https://github.com/luckman212/secure-input-sentry/releases), drag it into your Applications folder, and run it. The app is signed and notarized, and no special permissions are required.
+Download the latest [release](https://github.com/luckman212/secure-input-sentry/releases), drag it into your Applications folder, and run it. The app is signed and notarized, and no special permissions are required. It's a Universal Binary and should run on Intel and AppleSilicon.
 
 ### What you'll see
 
