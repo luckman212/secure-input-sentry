@@ -1,4 +1,5 @@
 import AppKit
+import AudioToolbox
 import Carbon
 import Darwin
 import Foundation
@@ -75,6 +76,9 @@ private final class AppDelegate: NSObject, NSApplicationDelegate {
         let enabled = IsSecureEventInputEnabled()
         if enabled != lastEnabled {
             logger.notice("Secure Input enabled: \(enabled, privacy: .public)")
+            if enabled, lastEnabled == false, UserDefaults.standard.bool(forKey: "PlaySound") {
+                playLockSound()
+            }
             lastEnabled = enabled
         }
 
@@ -101,6 +105,27 @@ private final class AppDelegate: NSObject, NSApplicationDelegate {
             detailsItem?.title = details
         }
         if !item.isVisible { item.isVisible = true }
+    }
+
+    private func playLockSound() {
+        let logger = self.logger
+        DispatchQueue.global(qos: .userInitiated).async {
+            guard let url = Bundle.main.url(forResource: "lock", withExtension: "aif") else {
+                logger.error("Bundled lock.aif is missing.")
+                return
+            }
+
+            var soundID: SystemSoundID = 0
+            let status = AudioServicesCreateSystemSoundID(url as CFURL, &soundID)
+            guard status == noErr else {
+                logger.error("Could not load lock.aif (OSStatus \(status, privacy: .public)).")
+                return
+            }
+
+            AudioServicesPlaySystemSoundWithCompletion(soundID) { [soundID] in
+                AudioServicesDisposeSystemSoundID(soundID)
+            }
+        }
     }
 
     private func makeStatusItem() -> NSStatusItem {

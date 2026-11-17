@@ -22,6 +22,20 @@ Here's an example of what you'll see when the app is running and SecureInput is 
 
 <img src="screen2_menu.png" />
 
+### Sound Effects
+
+Version 1.1.0 introduces a lock sound effect that helps grab your attention when SecureInput gets triggered, in case the menu bar icon is too subtle. To enable the sound, run the command below (you don't need to restart the app):
+
+```bash
+defaults write com.luckman212.secureinputsentry PlaySound -bool TRUE
+```
+
+To disable it, run:
+
+```bash
+defaults write com.luckman212.secureinputsentry PlaySound -bool FALSE
+```
+
 ### Run at startup
 
 To keep the code simple, I didn't spend time bundling in automatic Startup Item registration via the normal `ServiceManagement/SMAppService`. To have the app automatically run on every login, simply drag it into your login item settings panel:
