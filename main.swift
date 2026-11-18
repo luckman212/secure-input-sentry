@@ -76,8 +76,8 @@ private final class AppDelegate: NSObject, NSApplicationDelegate {
         let enabled = IsSecureEventInputEnabled()
         if enabled != lastEnabled {
             logger.notice("Secure Input enabled: \(enabled, privacy: .public)")
-            if enabled, lastEnabled == false, UserDefaults.standard.bool(forKey: "PlaySound") {
-                playLockSound()
+            if lastEnabled != nil, UserDefaults.standard.bool(forKey: "PlaySound") {
+                playSound(enabled ? "lock" : "release")
             }
             lastEnabled = enabled
         }
@@ -107,25 +107,20 @@ private final class AppDelegate: NSObject, NSApplicationDelegate {
         if !item.isVisible { item.isVisible = true }
     }
 
-    private func playLockSound() {
+    private func playSound(_ name: String) {
         let logger = self.logger
         DispatchQueue.global(qos: .userInitiated).async {
-            guard let url = Bundle.main.url(forResource: "lock", withExtension: "aif") else {
-                logger.error("Bundled lock.aif is missing.")
-                return
-            }
-            guard let url = Bundle.main.url(forResource: "release", withExtension: "aif") else {
-                logger.error("Bundled release.aif is missing.")
+            guard let url = Bundle.main.url(forResource: name, withExtension: "aif") else {
+                logger.error("Bundled \(name, privacy: .public).aif is missing.")
                 return
             }
 
             var soundID: SystemSoundID = 0
             let status = AudioServicesCreateSystemSoundID(url as CFURL, &soundID)
             guard status == noErr else {
-                logger.error("Could not load lock.aif (OSStatus \(status, privacy: .public)).")
+                logger.error("Could not load \(name, privacy: .public).aif (OSStatus \(status, privacy: .public)).")
                 return
             }
-
             AudioServicesPlaySystemSoundWithCompletion(soundID) { [soundID] in
                 AudioServicesDisposeSystemSoundID(soundID)
             }
