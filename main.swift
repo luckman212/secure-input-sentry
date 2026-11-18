@@ -114,6 +114,10 @@ private final class AppDelegate: NSObject, NSApplicationDelegate {
                 logger.error("Bundled lock.aif is missing.")
                 return
             }
+            guard let url = Bundle.main.url(forResource: "release", withExtension: "aif") else {
+                logger.error("Bundled release.aif is missing.")
+                return
+            }
 
             var soundID: SystemSoundID = 0
             let status = AudioServicesCreateSystemSoundID(url as CFURL, &soundID)
